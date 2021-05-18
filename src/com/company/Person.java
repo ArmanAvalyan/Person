@@ -56,11 +56,17 @@ public class Person {
 
     public void setPassportId(String passportId) {
         if (passportId.startsWith("AN") && passportId.length() == 8) {
-            if (passportId.substring(3).matches("[0-9]+"))
-                this.passportId = passportId;
-        } else
-            System.out.println("Enter the correct number");
+            char[] valid = passportId.substring(3).toCharArray();
+            for (int i = 0; i < valid.length; i++) {
+                if (!Character.isDigit(valid[i])) {
+                    this.passportId = null;
+                    System.out.println("Enter the correct number");
+                    break;
+                } else
+                    this.passportId = passportId;
+            }
 
+        }
     }
 
     public int getAge() {
