@@ -20,12 +20,12 @@ public class Person {
     }
 
     public String display() {
-        return "First name is " + firstName + '\n' +
-                "Last name is " + lastName + '\n' +
-                "Passport ID is " + passportId + '\n' +
-                "Age is " + age + '\n' +
-                "Sex is " + sex + '\n' +
-                "Nationality is " + nationality;
+        return "First name is " + getFirstName() + '\n' +
+                "Last name is " + getLastName() + '\n' +
+                "Passport ID is " + getPassportId() + '\n' +
+                "Age is " + getAge() + '\n' +
+                "Sex is " + getSex() + '\n' +
+                "Nationality is " + getNationality();
     }
 
     public String getFirstName() {
@@ -36,7 +36,7 @@ public class Person {
         if (firstName.length() >= 3 && firstName.length() <= 15)
             this.firstName = firstName;
         else
-            System.out.println("Enter the correct name");
+            System.out.println("The first name is incorrect");
     }
 
     public String getLastName() {
@@ -47,7 +47,7 @@ public class Person {
         if (lastName.length() >= 6 && lastName.length() <= 20)
             this.lastName = lastName;
         else
-            System.out.println("Enter the correct name");
+            System.out.println("The last name is incorrect");
     }
 
     public String getPassportId() {
@@ -55,18 +55,17 @@ public class Person {
     }
 
     public void setPassportId(String passportId) {
-        if (passportId.startsWith("AN") && passportId.length() == 8) {
-            char[] valid = passportId.substring(3).toCharArray();
-            for (int i = 0; i < valid.length; i++) {
-                if (!Character.isDigit(valid[i])) {
-                    this.passportId = null;
-                    System.out.println("Enter the correct number");
-                    break;
-                } else
-                    this.passportId = passportId;
+        boolean valid = true;
+        char[] digits = passportId.substring(3).toCharArray();
+        for (int i = 0; i < digits.length; i++) {
+            if (!Character.isDigit(digits[i])) {
+                valid = false;
             }
-
         }
+        if (passportId.startsWith("AN") && passportId.length() == 8 && valid) {
+            this.passportId = passportId;
+        } else
+            System.out.println("Incorrect passport ID");
     }
 
     public int getAge() {
@@ -77,7 +76,7 @@ public class Person {
         if (age >= 18 && age <= 99)
             this.age = age;
         else
-            System.out.println("Enter the correct age");
+            System.out.println("Incorrect age");
     }
 
     public String getSex() {
@@ -87,6 +86,8 @@ public class Person {
     public void setSex(String sex) {
         if (sex.equals("female") || sex.equals("male"))
             this.sex = sex;
+        else
+            System.out.println("Incorrect sex");
     }
 
     public String getNationality() {
